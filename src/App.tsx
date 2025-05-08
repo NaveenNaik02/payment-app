@@ -1,15 +1,22 @@
-import './App.css'
-import { observer } from 'mobx-react-lite'
-import { Counter } from './models'
+import {
+  Navigate,
+  Route,
+  Routes,
+  BrowserRouter as Router,
+} from "react-router-dom";
+import "./App.css";
+import { LoginForm } from "./pages";
 
-const counter = new Counter({});
-const App = observer(() => {
+export const App = () => {
   return (
-    <>
-      <h1>Count: ${counter.count}</h1>
-      <button onClick={() => counter.increment()}>click me</button>
-    </>
-  )
-})
-
-export default App
+    <Router>
+      <Routes>
+        <Route path="/" element={<Navigate to="/login" />} />
+        <Route path="/login" element={<LoginForm />} />
+        <Route path="/orders" element={<div>orders</div>} />
+        <Route path="/order-success" element={<div>order success</div>} />
+        <Route path="*" element={<div>not found</div>} />
+      </Routes>
+    </Router>
+  );
+};
