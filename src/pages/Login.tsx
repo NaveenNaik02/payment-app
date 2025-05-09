@@ -1,10 +1,18 @@
-export const LoginForm = () => {
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card";
+import { LoginForm } from "../features/auth/components/LoginForm";
+
+export const LoginPage = () => {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-100">
-      <div className="card w-96 bg-white p-6 shadow-xl">
-        <h2 className="text-center text-2xl font-bold">Login</h2>
-        <LoginForm />
-      </div>
+    <div className="flex min-h-screen min-w-screen items-center justify-center bg-gray-100">
+      <Card className="w-96 h-auto">
+        <CardHeader>
+          <CardTitle>Login Form</CardTitle>
+          <CardDescription>Please Enter Your Credentials</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <LoginForm />
+        </CardContent>
+      </Card>
     </div>
   );
 };

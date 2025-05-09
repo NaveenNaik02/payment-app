@@ -11,7 +11,7 @@
     "moduleResolution": "Bundler",
     "jsx": "react-jsx",
     "experimentalDecorators": true,
-    "useDefineForClassFields": true,
+    "useDefineForClassFields": false,
     "emitDecoratorMetadata": true,
     "strict": true,
     "esModuleInterop": true,
