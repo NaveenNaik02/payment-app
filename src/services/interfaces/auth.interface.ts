@@ -1,3 +1,12 @@
 export interface IAuthService {
-    login(username: string, password: string): Promise<any>;
+  login(payload: ILoginPayload): Promise<ILoginResponse>;
+}
+
+export interface ILoginPayload {
+  email: string;
+  password: string;
+}
+
+export interface ILoginResponse {
+  token: string;
 }

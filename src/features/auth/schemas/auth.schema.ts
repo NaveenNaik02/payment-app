@@ -1,8 +1,8 @@
 import { z } from "zod";
-import { passwordSchema, usernameSchema } from "../../../lib";
+import { passwordSchema, emailSchema } from "@/lib";
 
 export const loginSchema = z.object({
-  username: usernameSchema,
+  email: emailSchema,
   password: passwordSchema,
 });
 

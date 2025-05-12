@@ -1,39 +1,31 @@
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
+import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import tailwindcss from "@tailwindcss/vite";
-
 
 export default defineConfig({
   plugins: [
     react({
-      babel: {
-        presets: [
-          ["@babel/preset-react", { runtime: "automatic" }],
-          ["@babel/preset-typescript", { allExtensions: true }]],
-        plugins: [
-          ["@babel/plugin-proposal-decorators", { legacy: true }],
-          ["@babel/plugin-transform-class-properties", { loose: true }]
-        ]
-      }
+      tsDecorators: true, // enables decorators in SWC
     }),
-    tailwindcss()
+    tailwindcss(),
   ],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src")
-    }
+      "@": path.resolve(__dirname, "./src"),
+    },
   },
   optimizeDeps: {
-    // Needed for MobX decorators
-    include: [
-      "inversify",
-      "reflect-metadata",
-      "mobx",
-      "mobx-keystone",
-      "mobx-react-lite",
-      "@babel/plugin-proposal-decorators",
-      "@babel/plugin-transform-class-properties",
-    ]
-  }
+    include: ["react", "react-dom", "reflect-metadata", "inversify"],
+    esbuildOptions: {
+      tsconfig: "./tsconfig.app.json",
+      loader: {
+        ".ts": "tsx",
+      },
+      target: "es2020",
+      supported: {
+        decorators: true,
+      },
+    },
+  },
 });
