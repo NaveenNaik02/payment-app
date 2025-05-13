@@ -9,4 +9,4 @@ export const passwordSchema = z.string().min(1, "password is required");
 
 export const productId = z.string().min(1, "please select item");
 
-export const quantity = z.number();
+export const quantity = z.number().min(1, "Quantity must be at least 1");

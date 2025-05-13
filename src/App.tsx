@@ -9,7 +9,7 @@ import "./App.css";
 import { useInjection } from "./providers";
 import { MODEL_TYPES } from "./constants";
 import type { RootStore } from "./stores";
-import { Catalog, LoginPage } from "./pages";
+import { CartPage, Catalog, LoginPage } from "./pages";
 
 export const App = observer(() => {
   const {
@@ -20,14 +20,18 @@ export const App = observer(() => {
       <Routes>
         <Route
           path="/"
-          element={<Navigate to={isAuthenticated ? "/orders" : "/login"} />}
+          element={<Navigate to={isAuthenticated ? "/catalog" : "/login"} />}
         />
         <Route path="/login" element={<LoginPage />} />
         <Route
-          path="/orders"
+          path="/catalog"
           element={isAuthenticated ? <Catalog /> : <Navigate to="/login" />}
         />
         <Route path="/order-success" element={<div>order success</div>} />
+        <Route
+          path="/cart"
+          element={isAuthenticated ? <CartPage /> : <Navigate to="/login" />}
+        />
         <Route path="*" element={<div>not found</div>} />
       </Routes>
     </Router>

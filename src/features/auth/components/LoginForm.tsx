@@ -37,7 +37,7 @@ export const LoginForm = () => {
       try {
         const response = await service.login(payload);
         store.authStore.setToken(response.token);
-        navigate("/orders");
+        navigate("/catalog");
       } catch (error: unknown) {
         let message = "Login failed. Please try again.";
         if (error instanceof Error) {

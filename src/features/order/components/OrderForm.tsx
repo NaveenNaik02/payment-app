@@ -21,6 +21,7 @@ import type { ICatalogService, IOrderService } from "@/services/interfaces";
 import { TYPES } from "@/constants";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useNavigate } from "react-router-dom";
 
 export const OrderForm = () => {
   const catalogService = useInjection<ICatalogService>(TYPES.CatalogService);
@@ -34,6 +35,7 @@ export const OrderForm = () => {
   });
 
   const [options, setOptions] = useState<{ name: string; value: string }[]>([]);
+  const navigate = useNavigate();
 
   const getProducts = useCallback(async () => {
     const products = await catalogService.getProducts();
@@ -57,13 +59,13 @@ export const OrderForm = () => {
   const onSubmit = useCallback(
     async (payload: OrderSchema) => {
       try {
-        const response = await cartService.createCart(payload);
-        console.log(response);
+        await cartService.createCart(payload);
+        navigate("/cart");
       } catch (error) {
         console.log(error);
       }
     },
-    [cartService]
+    [cartService, navigate]
   );
 
   useEffect(() => {
@@ -97,7 +99,12 @@ export const OrderForm = () => {
             <FormItem>
               <FormLabel className="mt-4">Quantity</FormLabel>
               <FormControl>
-                <Input {...field} type="number" min={1} />
+                <Input
+                  {...field}
+                  type="number"
+                  min={1}
+                  onChange={(e) => field.onChange(e.target.valueAsNumber || 1)}
+                />
               </FormControl>
             </FormItem>
           )}
@@ -108,7 +115,7 @@ export const OrderForm = () => {
           className="text-white mt-4"
           disabled={form.formState.isSubmitting}
         >
-          {form.formState.isSubmitted ? "Please wait..!" : "Add to cart"}
+          {form.formState.isSubmitting ? "Please wait..!" : "Add to cart"}
         </Button>
       </form>
     </Form>
